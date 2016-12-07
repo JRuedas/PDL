@@ -1,2 +1,1 @@
-Fichero de prueba!Añadir linea
-Añadir linea
+x = 3 + 42 * (s - t)
