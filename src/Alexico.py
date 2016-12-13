@@ -4,7 +4,7 @@ testFileAux = []
 testFile = ""
 def leerFichero():
     input("Introduce algo \n")
-    fname = 'C:\\Users\\Jonathan\\PycharmProjects\\PDL\\resources\\prueba.js'
+    fname = 'C:\\Users\\alfre\\PycharmProjects\\PDL\\resources\\prueba.js'
     if os.path.isfile(fname):
         with open(fname,'r') as f:
             for line in f:
@@ -16,7 +16,7 @@ def leerFichero():
         #    f.write("\nAñadir linea")
     else:
         print("File not found")
-
+#--------------------------------------------------------------------------------------------------
 # List of token names.   This is always required
 tokens = (
    'NUMBER',
@@ -35,7 +35,7 @@ t_TIMES   = r'\*'
 t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
-
+#Definir token espacio entre linea (mirar doc)
 # A regular expression rule with some action code
 def t_NUMBER(t):
     r'\d+'
@@ -55,14 +55,19 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+#--------------------------------------------------------------------------------------------------
+
+
 # Build the lexer
 lexer = lex.lex()
 
 leerFichero()
 
-print("Prueba"+testFile)
+print("Prueba "+testFile)
 lexer.input(testFile)
 
+#--------------------------------------------------------------------------------------------------
+#A.Sintactico
 while True:
     tok = lexer.token()
     if not tok:
