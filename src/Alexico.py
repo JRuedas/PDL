@@ -26,6 +26,8 @@ tokens = (
    'DIVIDE',
    'LPAREN',
    'RPAREN',
+    'ID',
+    'ASIGNAR'
 )
 
 # Regular expression rules for simple tokens
@@ -35,6 +37,7 @@ t_TIMES   = r'\*'
 t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
+t_ASIGNAR = r'='
 #Definir token espacio entre linea (mirar doc)
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -54,6 +57,14 @@ t_ignore  = ' \t'
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
+
+# Define token ID
+def t_ID(t):
+    r'[a-zA-Z][a-zA-Z0-9_]*'
+    if t.value.upper() :
+        t.value = (t.value)
+        return t
+
 
 #--------------------------------------------------------------------------------------------------
 
