@@ -1,2 +1,4 @@
 x = 3 + 42 * (s - t)
-y=1+2
+yena=1+2
+ññç  #caracteres ilegales
+//esto es comentario

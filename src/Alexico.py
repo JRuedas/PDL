@@ -27,7 +27,9 @@ tokens = (
    'LPAREN',
    'RPAREN',
     'ID',
-    'ASIGNAR'
+    'ASIGNAR',
+    'ENDFILE',
+    'MAYOR'
 )
 
 # Regular expression rules for simple tokens
@@ -38,6 +40,7 @@ t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
 t_ASIGNAR = r'='
+# Comprobar si \ o / en t_MAYOR = r'>'
 #Definir token espacio entre linea (mirar doc)
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -64,6 +67,13 @@ def t_ID(t):
     if t.value.upper() :
         t.value = (t.value)
         return t
+
+    #Mirar operdaor de igualdad en pyth
+#def t_ENDFILE(t) :
+ #   if t == "eof"
+  #      print("Fin fichero" % t.value[0])
+   # return t_ID(t)
+#t.lexer.skip(0)
 
 
 #--------------------------------------------------------------------------------------------------
