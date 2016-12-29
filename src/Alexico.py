@@ -35,28 +35,28 @@ tokens = (
     'EOF'               # Fin de fichero
 )
 
-# Diccionario de palabras reservadas
-palReservadas = {
-    'int':'INT',
-    'chars':'CHARS',
-    'bool': 'BOOL',
-    'if': 'IF',
-    'else': 'ELSE',
-    'return': 'RETURN',
-    'function': 'FUNCTION',
-    'var': 'VAR',
-    'write': 'WRITE',
-    'prompt': 'PROMPT',
-    'switch': 'SWITCH',
-    'case': 'CASE',
-    'break': 'BREAK',
-    'default': 'DEFAULT',
-}
+# Lista de palabras reservadas
+palReservadas = (
+    'INT',
+    'CHARS',
+    'BOOL',
+    'IF',
+    'ELSE',
+    'RETURN',
+    'FUNCTION',
+    'VAR',
+    'WRITE',
+    'PROMPT',
+    'SWITCH',
+    'CASE',
+    'BREAK',
+    'DEFAULT'
+)
 
-tokens = tokens + tuple(palReservadas.values())
+# Importante, no borrar ya que el PLY necesita tener tokens+palreservadas juntos
+tokens = tokens + palReservadas
 
 # Expresiones regulares para algunos tokens simples
-t_OPARIT    = r'\+'
 t_OPRELA    = r'>'
 t_OPLOGI    = r'&&'
 t_OPASIG    = r'='
@@ -75,7 +75,7 @@ t_STRING    = r'\'([^\'\n])*\'|\"([^"\n])*\"'
 # Define tegla para identificadores
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9_]*'
-    if t.value.lower() in palReservadas:
+    if t.value.upper() in palReservadas:
         t.type = (t.value.upper())
         t.value = ""
     else:
@@ -86,6 +86,13 @@ def t_ID(t):
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
+    return t
+
+# Define regla para operaciones aritmeticas (+ y --)
+def t_OPARIT(t):
+    r'(\+)|(--[a-zA-Z][a-zA-Z0-9_;]*)'
+    if t.value != "+":
+        t.value = "--"
     return t
 
 # Define regla para numeros de linea
@@ -123,7 +130,7 @@ def t_error(t):
 #--------------------------------------------------------------------------------------------------
 
 
-# Build the lexer
+# Construirimos el Analizador
 lexer = lex.lex()
 
 leerFichero()
@@ -131,7 +138,7 @@ leerFichero()
 lexer.input(testFile)
 
 #--------------------------------------------------------------------------------------------------
-#A.Sintactico
+
 print("Lista de Tokens generados: \n")
 while True:
     tok = lexer.token()
