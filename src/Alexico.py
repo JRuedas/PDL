@@ -10,22 +10,22 @@ def leerFichero():
             global testFile
             for line in f:
                 testFile += str(line)
-            print(testFile)
+            print("Fichero de entrada:\n\n" + testFile + "\n\n")
     else:
         print("File not found")
+
 #--------------------------------------------------------------------------------------------------
 # Lista de tokens para el Analizador Lexico.
 tokens = (
     'ID',               # Identificador
     'NUMBER',           # Numero
-    'PLUS',             # Operador aritmetico suma: +
-    'GT',               # Operador relacional mayor que: >
-    'AND',              # Operador logico and: &&
-    'ASSIGN',           # Operador asignacion: =
-    'LPAREN',           # Parentesis izquierdo: (
-    'RPAREN',           # Parentesis derecho: )
-    'LBRACKET',         # Llave izquierdo: {
-    'RBRACKET',         # Llave derecha: },
+    'STRING',           # Cadena
+    'OPARIT',           # Operador aritmetico suma: +
+    'OPRELA',           # Operador relacional mayor que: >
+    'OPLOGI',           # Operador logico and: &&
+    'OPASIG',           # Operador asignacion: =
+    'PARENT',           # Parentesis: ( o )
+    'BRACKET',          # Llave: { o }
     'QMARK',            # Commilas dobles: "
     'APOSTROPH',        # Comillas simples: '
     'SEMICOLON',        # Punto y coma: ;
@@ -56,25 +56,19 @@ palReservadas = {
 tokens = tokens + tuple(palReservadas.values())
 
 # Expresiones regulares para algunos tokens simples
-t_PLUS      = r'\+'
-t_GT        = r'>'
-t_AND       = r'&&'
-t_ASSIGN    = r'='
-t_LPAREN    = r'\('
-t_RPAREN    = r'\)'
-t_LBRACKET  = r'\{'
-t_RBRACKET  = r'\}'
+t_OPARIT    = r'\+'
+t_OPRELA    = r'>'
+t_OPLOGI    = r'&&'
+t_OPASIG    = r'='
+t_PARENT    = r'(\()|(\))'
+t_BRACKET   = r'(\{)|(\})'
 t_QMARK     = r'\"'
 t_APOSTROPH = r'\''
 t_SEMICOLON = r';'
 t_COLON     = r':'
 t_COMMA     = r','
-
-
-
-# Comprobar si \ o / en t_MAYOR = r'>'
-#Definir token espacio entre linea (mirar doc)
-
+# Cadenas
+t_STRING    = r'\'([^\'\n])*\'|\"([^"\n])*\"'
 
 # Expresiones regulares para tokens complejos
 
@@ -99,12 +93,7 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-# Define regla para espacios en blanco
-def t_nonspace(t):
-    r'\s+'
-    pass
-
-# Define regla para comentarios
+# Define regla para comentarios de /* */ y de //
 def t_comments(t):
     r'(\/\*((\*)*[^\*\/]*)*\*\/)|(\/\/[^\n]*)'
     pass
@@ -117,6 +106,11 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+
+# Define regla para espacios en blanco !!! INNECESARIA, ya los ignoramos en t_ignore
+# def t_nonspace(t):
+#     r'\s+'
+#     pass
 
 #Mirar operdaor de igualdad en pyth
     #def t_ENDFILE(t) :
@@ -134,11 +128,11 @@ lexer = lex.lex()
 
 leerFichero()
 
-print("Prueba "+testFile)
 lexer.input(testFile)
 
 #--------------------------------------------------------------------------------------------------
 #A.Sintactico
+print("Lista de Tokens generados: \n")
 while True:
     tok = lexer.token()
     if not tok:
