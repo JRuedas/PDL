@@ -1,6 +1,7 @@
 import ply.lex as lex
 import os
 testFile = ""
+#TODO Leer desde linea de comandos
 def leerFichero():
     input("Introduce algo \n")
     fname = '..\\resources\\prueba.js'
@@ -77,34 +78,41 @@ t_COMMA     = r','
 
 # Expresiones regulares para tokens complejos
 
-# Define token ID
+# Define tegla para identificadores
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9_]*'
-    if t.value in palReservadas:
+    if t.value.lower() in palReservadas:
         t.type = (t.value.upper())
         t.value = ""
     else:
-        t.value = "Entrada TS"
+        t.value = "Devolver entrada TS"
     return t
 
+# Define regla para numeros
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-# Define a rule so we can track line numbers
+# Define regla para numeros de linea
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-def t_ccode_nonspace(t):
+# Define regla para espacios en blanco
+def t_nonspace(t):
     r'\s+'
     pass
 
-# A string containing ignored characters (spaces and tabs)
+# Define regla para comentarios
+def t_comments(t):
+    r'(\/\*((\*)*[^\*\/]*)*\*\/)|(\/\/[^\n]*)'
+    pass
+
+# Cadena con los caracteres a ignorar (espacios y tabs)
 t_ignore  = ' \t'
 
-# Error handling rule
+# Regla de manejo de errores
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
