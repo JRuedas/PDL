@@ -6,3 +6,6 @@ if(a){
     s = 'Cadena de texto de else'
 }
 --x
+*
+/
+%

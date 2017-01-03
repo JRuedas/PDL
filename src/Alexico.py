@@ -96,7 +96,7 @@ def t_OPARIT(t):
     return t
 
 # Define regla para numeros de linea
-def t_newline(t):
+def t_EOL(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
@@ -110,7 +110,7 @@ t_ignore  = ' \t'
 
 # Regla de manejo de errores
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print("Illegal character {0} en linea {1}".format(t.value[0],t.lexer.lineno))
     t.lexer.skip(1)
 
 
