@@ -1,10 +1,10 @@
 import ply.lex as lex
 import os
+import sys
 testFile = ""
-#TODO Leer desde linea de comandos
 def leerFichero():
-    input("Introduce algo \n")
     fname = '..\\resources\\prueba.js'
+    #fname = sys.argv
     if os.path.isfile(fname):
         with open(fname, 'r') as f:
             global testFile
@@ -24,10 +24,12 @@ tokens = (
     'OPRELA',           # Operador relacional mayor que: >
     'OPLOGI',           # Operador logico and: &&
     'OPASIG',           # Operador asignacion: =
-    'PARENT',           # Parentesis: ( o )
-    'BRACKET',          # Llave: { o }
-    'QMARK',            # Commilas dobles: "
-    'APOSTROPH',        # Comillas simples: '
+    'LPARENT',          # Parentesis: (
+    'RPARENT',          # Parentesis: )
+    'LBRACKET',         # Llave: {
+    'RBRACKET',         # Llave: }
+#   'QMARK',            # Commilas dobles: "
+#   'APOSTROPH',        # Comillas simples: '
     'SEMICOLON',        # Punto y coma: ;
     'COLON',            # Dos puntos: : (para case)
     'COMMA',            # Coma: ,
@@ -50,7 +52,9 @@ palReservadas = (
     'SWITCH',
     'CASE',
     'BREAK',
-    'DEFAULT'
+    'DEFAULT',
+    'TRUE',
+    'FALSE'
 )
 
 # Importante, no borrar ya que el PLY necesita tener tokens+palreservadas juntos
@@ -60,10 +64,12 @@ tokens = tokens + palReservadas
 t_OPRELA    = r'>'
 t_OPLOGI    = r'&&'
 t_OPASIG    = r'='
-t_PARENT    = r'(\()|(\))'
-t_BRACKET   = r'(\{)|(\})'
-t_QMARK     = r'\"'
-t_APOSTROPH = r'\''
+t_LPARENT    = r'\('
+t_RPARENT    = r'\)'
+t_LBRACKET   = r'\{'
+t_RBRACKET   = r'\}'
+#t_QMARK     = r'\"'
+#t_APOSTROPH = r'\''
 t_SEMICOLON = r';'
 t_COLON     = r':'
 t_COMMA     = r','
@@ -139,9 +145,21 @@ lexer.input(testFile)
 
 #--------------------------------------------------------------------------------------------------
 
+
+rutaFicheroTokens = "..\\generated\\tokens.txt"
+
 print("Lista de Tokens generados: \n")
+
+ftok = open(rutaFicheroTokens,'w')
+ftok.write("//Lista de Tokens generados: \n")
+
 while True:
     tok = lexer.token()
     if not tok:
+        # Generamos token EOF
+        print('<EOF,->\n')
+        ftok.close()
         break      # No hay mas entrada
     print('<'+str(tok.type)+','+str(tok.value)+'>\n')
+    ftok.write('<'+str(tok.type)+','+str(tok.value)+'>\n')
+
