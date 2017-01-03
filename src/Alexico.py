@@ -116,7 +116,11 @@ t_ignore  = ' \t'
 
 # Regla de manejo de errores
 def t_error(t):
-    print("Illegal character {0} en linea {1}".format(t.value[0],t.lexer.lineno))
+    rutaFicheroErrores = "..\\generated\\errores.txt"
+    print("Error de tipo Lexico: Caracter ilegal {0} en linea {1} \n".format(t.value[0],t.lexer.lineno))
+    ferrores = open(rutaFicheroErrores,'a')
+    ferrores.write("Error de tipo Lexico: Caracter ilegal {0} en linea {1} \n".format(t.value[0],t.lexer.lineno))
+    ferrores.close()
     t.lexer.skip(1)
 
 
