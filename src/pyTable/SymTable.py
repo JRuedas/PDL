@@ -6,7 +6,7 @@ Full legal text of this license can be found on http://creativecommons.org/licen
 from Table import Table
 
 
-class SymTable():
+class SymTable:
 
     def __init__(self):
         self.tables = []
@@ -57,6 +57,12 @@ class SymTable():
 
         for tab in self.tables:
             tab.write(path)
+        return True
+
+    # TODO Hecho por mi para que escriba por consola las tablas de simbolos
+    def writeTableConsole(self,idTS):
+        tab = self.tables[idTS]
+        tab.writeConsole()
         return True
 
     def searchPos(self, id, lex):

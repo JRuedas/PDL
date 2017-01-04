@@ -69,6 +69,23 @@ class Table():
         else:
             return False
 
+    # TODO Hecho por mi para ver el resultado en la consola, podemos borrarlo luego
+    def writeConsole(self):
+        "Writes the contents of this table to the console"
+
+        if self.exist():
+            print('--------------------| Tabla' + str(self.id) + ' |--------------------\n')
+            print('----------------------------------------------------\n')
+            for e in self.lexems.keys():
+                print('\t' + str(e))
+                if self.lexems[e] != '':
+                    print(' (' + self.lexems[e] + ')')
+                print('\n')
+            print('\n\n\n')
+            return True
+        else:
+            return False
+
     def getPos(self, lex):
         "returns the ID of lex or False if lex is not in this table"
 

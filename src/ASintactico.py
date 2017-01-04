@@ -2,8 +2,61 @@ import ply.yacc as yacc
 import pyTable.SymTable as SymTable
 from sys import stdin
 import os
-import Alexico
-tokens = Alexico.tokens
+import GestorTS as gTS
+import Alexico as AL
+#tokens = Alexico.tokens
+
+# Lista de tokens para el Analizador Lexico.
+tokens = (
+    'ID',               # Identificador
+    'NUMBER',           # Numero
+    'STRING',           # Cadena
+    'OPARIT',           # Operador aritmetico suma: +
+    'OPRELA',           # Operador relacional mayor que: >
+    'OPLOGI',           # Operador logico and: &&
+    'OPASIG',           # Operador asignacion: =
+    'LPARENT',          # Parentesis: (
+    'RPARENT',          # Parentesis: )
+    'LBRACKET',         # Llave: {
+    'RBRACKET',         # Llave: }
+#   'QMARK',            # Commilas dobles: "
+#   'APOSTROPH',        # Comillas simples: '
+    'SEMICOLON',        # Punto y coma: ;
+    'COLON',            # Dos puntos: : (para case)
+    'COMMA',            # Coma: ,
+    'EOL',              # Fin de linea
+    'EOF'               # Fin de fichero
+)
+
+# Lista de palabras reservadas
+palReservadas = (
+    'INT',
+    'CHARS',
+    'BOOL',
+    'IF',
+    'ELSE',
+    'RETURN',
+    'FUNCTION',
+    'VAR',
+    'WRITE',
+    'PROMPT',
+    'SWITCH',
+    'CASE',
+    'BREAK',
+    'DEFAULT',
+    'TRUE',
+    'FALSE'
+)
+
+gTS.creaTS()
+tID = gTS.getTSActual()
+gTS.insertaEnTS(tID,"a")
+gTS.imprimeTSActual()
+
+aLex = AL.Alexico(tokens,palReservadas)
+
+# Importante, no borrar ya que el PLY necesita tener tokens+palreservadas juntos
+tokens = tokens + palReservadas
 
 precedencia = [  # Cuanto más bajo, más prioridad tiene.
     ('left', 'OPASIG'),  # =
