@@ -6,8 +6,6 @@ symT = SymTable.SymTable()
 # Lista que contendra los identificadores de las TS creadas, son enteros y las mas nuevas estaran al final
 listaTS = []
 
-tActualAux=""
-
 # Metodo que crea una nueva TS, inserta el identificador al final de la lista
 def creaTS():
     listaTS.append(symT.newTable())
@@ -21,10 +19,10 @@ def destruyeTSActual():
 def getTSActual():
     return int(listaTS[len(listaTS)-1])
 
-# Metodo que inserta el lexema en la tabla especificada por idTS
+# Metodo que inserta el lexema en la TSActual
 # Retorna el ID asignado al lexema en esa tabla o falso si ya existia
-def insertaEnTS(idTS,lexema):
-    return symT.add(idTS, lexema)
+def insertaEnTSActual(lexema):
+    return symT.add(listaTS[len(listaTS)-1], lexema)
 
 
 # Metodo que busca en la TS actual un lexema y devuelve

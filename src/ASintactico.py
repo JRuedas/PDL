@@ -50,7 +50,7 @@ palReservadas = (
 
 gTS.creaTS()
 tID = gTS.getTSActual()
-gTS.insertaEnTS(tID,"a")
+gTS.insertaEnTSActual("a")
 gTS.imprimeTSActual()
 
 aLex = AL.Alexico(tokens,palReservadas)
