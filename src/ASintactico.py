@@ -94,10 +94,11 @@ def p_sentencias_ids(p):
     ''' sentencias : ID OPASIG condicion
                      | ID PARENT par PARETN '''
 
-def p_sentencias_padre(p):
+def p_sentencias_wrpr(p):
     ''' sentencias : write PARENT condicion PARENT
                 | prompt PARENT ID PARENT
                 | prompt PARENT STRING PARENT '''
+
 def p_sentencias_return(p):
     ''' sentencias : return retorno '''
 
@@ -108,7 +109,7 @@ def p_opcional(p):
     ''' opcional : else BRACKET sentencias BRACKET
                 | lambda '''
 
-def p_concicion(p):
+def p_condicion(p):
     ''' condicion : condicion OPLOGI relacional
                 | relacional '''
 
