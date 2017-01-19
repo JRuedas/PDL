@@ -87,15 +87,22 @@ def p_elementos(p):
     ''' elementos : var tipos ID
                 | sentncias '''
 
-def p_sentencias(p):
-    ''' sentencias : if PARENT condicion PARENT BRACKET sentencias BRACKET opcional
-                | ID OPASIG condicion
-                | ID PARENT par PARETN
-                | write PARENT condicion PARENT
+def p_sentencias_princip(p):
+    ''' sentencias : if PARENT condicion PARENT BRACKET sentencias BRACKET opcional '''
+
+def p_sentencias_ids(p):
+    ''' sentencias : ID OPASIG condicion
+                     | ID PARENT par PARETN '''
+
+def p_sentencias_padre(p):
+    ''' sentencias : write PARENT condicion PARENT
                 | prompt PARENT ID PARENT
-                | prompt PARENT STRING PARENT
-                | return retorno
-                | sentenciaSwitch '''
+                | prompt PARENT STRING PARENT '''
+def p_sentencias_return(p):
+    ''' sentencias : return retorno '''
+
+def p_sentencias_switch(p):
+    ''' sentencias: sentenciaSwitch '''
 
 def p_opcional(p):
     ''' opcional : else BRACKET sentencias BRACKET
