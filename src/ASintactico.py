@@ -167,5 +167,5 @@ def p_extraAttr(p):
     ''' extraAttr : COMMA tipo ID extraAttr | lambda '''
 
 def p_error(p):
-    print "Error sintáctico"
+    print ("Error sintáctico")
 
