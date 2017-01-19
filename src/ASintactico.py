@@ -1,3 +1,4 @@
+# coding=utf-8
 import ply.yacc as yacc
 import pyTable.SymTable as SymTable
 from sys import stdin
@@ -75,13 +76,14 @@ def p_zeta(p):
                 | EOL '''
 def p_lambda(p):
     ''' lambda : '''
+    pass
 
 def p_funcion(p):
     ''' funcion : function tiposvacio ID PARENT atributos PARENT zeta BRACKET conjunto BRACKET '''
 
 def p_conjunto(p):
     ''' conjunto : elementos zeta conjunto
-                | landa '''
+                | lambda '''
 
 def p_elementos(p):
     ''' elementos : var tipos ID
@@ -127,7 +129,7 @@ def p_valores(p):
                 | true | false
                 | STRING
                 | PARENT condicion PARENT
-                |ID PARENT par PARENT'''
+                | ID PARENT par PARENT'''
 
 def p_par(p):
     ''' par : condicion extra
@@ -163,4 +165,7 @@ def p_atributos(p):
 
 def p_extraAttr(p):
     ''' extraAttr : COMMA tipo ID extraAttr | lambda '''
+
+def p_error(p):
+    print "Error sintáctico"
 
