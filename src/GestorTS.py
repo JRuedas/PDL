@@ -36,9 +36,13 @@ def insertaTipoEnTSActual(lexema,tipo):
 def getTipoLexemaTSActual(lexema):
     return symT.checkType(len(listaTS)-1,lexema)
 
-# Metodo que busca en la TS actual un lexema y devuelve
-def buscaEnTSActual():
-    pass
+# Metodo que busca en la pila de TS el lexema
+# Devuelve true si lo encuentra y false si no lo encuentra
+def buscaLexema(lexema):
+    contador = len(listaTS)-1
+    while contador>=0 and not symT.existsEntry(listaTS(contador,lexema)):
+        contador-1
+    return (contador >= 0)
 
 def imprimeTSActual():
     symT.writeTableConsole(len(listaTS)-1)
