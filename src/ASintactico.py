@@ -174,7 +174,7 @@ def p_extraAttr(p):
 
 def p_error(p):
     print("Error sintáctico en el token tipo", p.type)
-    if not p
+    if not p:
         print("Error sintáctico en el final del fichero")
         return
 
