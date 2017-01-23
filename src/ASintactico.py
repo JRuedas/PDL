@@ -73,55 +73,55 @@ def p_programa(p):
 
 def p_zeta(p):
     ''' zeta : EOL zeta
-                | EOL '''
+             | EOL '''
 def p_lambda(p):
-    ''' lambda : '''
+    ' lambda : '
     pass
 
 def p_funcion(p):
-    ''' funcion : function tiposvacio ID PARENT atributos PARENT zeta BRACKET conjunto BRACKET '''
+    ' funcion : function tiposvacio ID PARENT atributos PARENT zeta BRACKET conjunto BRACKET '
 
 def p_conjunto(p):
     ''' conjunto : elementos zeta conjunto
-                | lambda '''
+                 | lambda '''
 
 def p_elementos(p):
     ''' elementos : var tipos ID
-                | sentncias '''
+                  | sentncias '''
 
 def p_sentencias_princip(p):
-    ''' sentencias : if PARENT condicion PARENT BRACKET sentencias BRACKET opcional '''
+    ' sentencias : if PARENT condicion PARENT BRACKET sentencias BRACKET opcional '
 
 def p_sentencias_ids(p):
     ''' sentencias : ID OPASIG condicion
-                     | ID PARENT par PARETN '''
+                   | ID PARENT par PARETN '''
 
 def p_sentencias_wrpr(p):
     ''' sentencias : write PARENT condicion PARENT
-                | prompt PARENT ID PARENT
-                | prompt PARENT STRING PARENT '''
+                   | prompt PARENT ID PARENT
+                   | prompt PARENT STRING PARENT '''
 
 def p_sentencias_return(p):
-    ''' sentencias : return retorno '''
+    ' sentencias : return retorno '
 
 def p_sentencias_switch(p):
-    ''' sentencias: sentenciaSwitch '''
+    ' sentencias: sentenciaSwitch '
 
 def p_opcional(p):
     ''' opcional : else BRACKET sentencias BRACKET
-                | lambda '''
+                 | lambda '''
 
 def p_condicion(p):
     ''' condicion : condicion OPLOGI relacional
-                | relacional '''
+                  | relacional '''
 
 def p_relacional(p):
     ''' relacional : relacional OPRELA aritm
-                | aritm '''
+                   | aritm '''
 
 def p_aritm(p):
     ''' aritm : aritm OPARIT valores
-                | valores '''
+              | valores '''
 
 def p_valores(p):
     ''' valores : ID
@@ -137,35 +137,51 @@ def p_par(p):
 
 def p_extra(p):
     ''' extra : COMMA condicion extra
-            | lambda '''
+              | lambda '''
 
 def p_retorno(p):
-    ''' retorno : condicion | lambda '''
+    ''' retorno : condicion
+                | lambda '''
 
 def p_sentenciaSwitch(p):
-    ''' sentenciaSwitch : switch PARENT condicion PARENT BRACKET zeta cases default COLON  sentencias zeta BRACKET '''
+    ' sentenciaSwitch : switch PARENT condicion PARENT BRACKET zeta cases default COLON  sentencias zeta BRACKET '
 
 def p_cases(p):
-    ''' cases : case PARENT NUMBER PARENT COLON sentencias zeta breaks '''
+    ' cases : case PARENT NUMBER PARENT COLON sentencias zeta breaks '
 
 def p_breaks(p):
     ''' breaks : break zeta
-            | break zeta cases
-            | cases
-            | lambda '''
+               | break zeta cases
+               | cases
+               | lambda '''
 
 def p_tiposvacio(p):
-    ''' tiposvacio : tipos | lambda '''
+    ''' tiposvacio : tipos
+                   | lambda '''
 
 def p_tipos(p):
-    ''' tipos : int | chars | bool '''
+    ''' tipos : int
+              | chars
+              | bool '''
 
 def p_atributos(p):
-    ''' tipos ID extraAttr | lambda '''
+    ''' tipos : ID extraAttr
+              | lambda '''
 
 def p_extraAttr(p):
-    ''' extraAttr : COMMA tipo ID extraAttr | lambda '''
+    ''' extraAttr : COMMA tipo ID extraAttr
+                  | lambda '''
 
 def p_error(p):
-    print ("Error sintáctico")
+    print("Error sintáctico en el token tipo", p.type)
+    if not p:
+        print("Error sintáctico en el final del fichero")
+        return
+
+    #Vamos a activar el modo pánico con Parent. y con Llaves
+    while True:
+        tok = parser.token()
+        if not tok or tok.type==RPARENT or tok.type==RBRACKET:
+            break
+    parser.restart()
 
