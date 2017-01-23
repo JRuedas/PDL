@@ -30,7 +30,7 @@ class Alexico():
         tokens = self.tokens + self.palReservadas
         palReservadas = self.palReservadas
 
-        gTS.insertaEnTSActual("b")
+        gTS.insertaLexemaEnTSActual("b")
         gTS.imprimeTSActual()
 
         # Expresiones regulares para algunos tokens simples
