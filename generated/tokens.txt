@@ -1,0 +1,34 @@
+//Lista de Tokens generados: 
+<ID,Devolver entrada TS>
+<OPASIG,=>
+<NUMBER,3>
+<OPARIT,+>
+<NUMBER,42>
+<OPRELA,>>
+<LPARENT,(>
+<ID,Devolver entrada TS>
+<OPLOGI,&&>
+<ID,Devolver entrada TS>
+<RPARENT,)>
+<IF,>
+<LPARENT,(>
+<ID,Devolver entrada TS>
+<RPARENT,)>
+<LBRACKET,{>
+<ID,Devolver entrada TS>
+<OPASIG,=>
+<STRING,"Cadena de texto de if">
+<RBRACKET,}>
+<ELSE,>
+<LBRACKET,{>
+<ID,Devolver entrada TS>
+<OPASIG,=>
+<STRING,'Cadena de texto de else'>
+<RBRACKET,}>
+<OPARIT,-->
+<NUMBER,2>
+<NUMBER,3>
+<NUMBER,1>
+<NUMBER,3>
+<NUMBER,4>
+<NUMBER,2>

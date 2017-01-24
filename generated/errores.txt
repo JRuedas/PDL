@@ -1,0 +1,6 @@
+Error de tipo Lexico: Caracter ilegal * en linea 9 
+Error de tipo Lexico: Caracter ilegal / en linea 10 
+Error de tipo Lexico: Caracter ilegal % en linea 11 
+Error de tipo Lexico: Caracter ilegal * en linea 9 
+Error de tipo Lexico: Caracter ilegal / en linea 10 
+Error de tipo Lexico: Caracter ilegal % en linea 11 
