@@ -52,6 +52,8 @@ palReservadas = (
 gTS.creaTS()
 tID = gTS.getTSActual()
 gTS.insertaLexemaEnTSActual("a")
+gTS.insertaTipoEnTSActual("a","int")
+
 gTS.imprimeTSActual()
 
 aLex = AL.Alexico(tokens,palReservadas)
@@ -180,8 +182,8 @@ def p_error(p):
 
     #Vamos a activar el modo pánico con Parent. y con Llaves
     while True:
-        tok = parser.token()
-        if not tok or tok.type==RPARENT or tok.type==RBRACKET:
+        tok = yacc.token()
+        if not tok or tok.type=='RPARENT' or tok.type=='RBRACKET':
             break
-    parser.restart()
+    yacc.restart()
 
