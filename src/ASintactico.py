@@ -5,6 +5,7 @@ from sys import stdin
 import os
 import GestorTS as gTS
 import Alexico as AL
+import ASemantico as ASem
 #tokens = Alexico.tokens
 
 # Lista de tokens para el Analizador Lexico.
@@ -66,24 +67,37 @@ precedencia = [  # Cuanto más bajo, más prioridad tiene.
     ('left', 'OPLOGI'),  # &&
 ]
 
+
+
 def p_programa(p):
     ''' programa : elementos zeta programa
                 | funcion zeta programa '''
                 #| EOF '''
+    p[0] = Program(p[1], p[3])
+
+
 
 def p_zeta(p):
     ''' zeta : EOL zeta
              | EOL '''
+    pass #Podríamos añadir el túmero de línea en la que nos encontramos. (Opcional?)
+
 def p_lambda(p):
     ' lambda : '
     pass
 
 def p_funcion(p):
     ' funcion : function tiposvacio ID PARENT atributos PARENT zeta BRACKET conjunto BRACKET '
+    if p[4]=='LPARENT' and p[6]=='RPARENT' and p[8]=='LBRACKET' and p[10]=='RBRACKET':
+        p[0] = Funcion(p[1], p[2], p[3], p[5], p[9])
 
 def p_conjunto(p):
     ''' conjunto : elementos zeta conjunto
                  | lambda '''
+    if len(p) == 3:
+        p[0] = Conjunto(p[1],p[3])
+    else:
+        pass
 
 def p_elementos(p):
     ''' elementos : var tipos ID
@@ -181,7 +195,7 @@ def p_error(p):
     #Vamos a activar el modo pánico con Parent. y con Llaves
     while True:
         tok = parser.token()
-        if not tok or tok.type==RPARENT or tok.type==RBRACKET:
+        if not tok or tok.type=='RPARENT' or tok.type=='RBRACKET':
             break
     parser.restart()
 
